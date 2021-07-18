@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Profile = () => {
+export const User = () => {
     return (
         <div>
             <h2>Profile Componeent</h2>

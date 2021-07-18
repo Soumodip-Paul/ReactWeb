@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react'
 
 export const ScrollTop = () => {
-    const [visibility, setVisibility] = useState('hidden')
+    const [bottom, setBottom] = useState("-60px")
     useEffect(()=>
     document.addEventListener('scroll',()=>{
-        if (window.pageYOffset > 300) setVisibility('visible')
-        else setVisibility('hidden')
+        if (window.pageYOffset > 300) setBottom('0px')
+        else setBottom('-60px')
     })
     )
     return (
@@ -16,7 +16,7 @@ export const ScrollTop = () => {
                 top: 0,
                 behavior: 'smooth'
             })
-        }} style={{position:'fixed',right:'0',bottom: '0',visibility: visibility}}>arrow_upward</span>
+        }} style={{position:'fixed',bottom:'0',right: bottom,transition:"all 0.25s ease-in-out",cursor: 'pointer'}}>arrow_upward</span>
         
     )
 }

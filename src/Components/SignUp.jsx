@@ -6,24 +6,22 @@ import { Redirect } from 'react-router-dom'
 
 const auth = firebaseApp.auth()
 
-export const SignUp = () => {
+export const SignUp = ({currentUser}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [remember, setRemember] = useState(true)
-    const [currentUser, setcurrentUser] = useState(auth.currentUser)
-
-    auth.onAuthStateChanged(user=>setcurrentUser(user))
+    
 
     const submit = (e) => {
         e.preventDefault()
         if(!email||!password) alert("Please fill up the blanks")
-        else alert("do you want to submit")
+        else createUser(email,password)
     }
 
     return (
     <>
-    {console.log(currentUser)}
+    {currentUser!= null?<Redirect to={"/user"}/>:null}
     <div className="sign_in my-5" height="100vh">
     <form className="mx-auto my-2 w-50 d-flex" style={{
         minWidth: '200px',
@@ -49,16 +47,12 @@ export const SignUp = () => {
             <input type="checkbox" value={remember} checked={remember} onChange={e => setRemember(e.target.checked)} /> Remember me
         </label>
         </div>
-        <button className="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+        <button className="w-100 btn btn-lg btn-primary" id="emailSignIn" type="submit">Sign Up</button>
     </form>
         <div className="w-100 text-center">
-        <button className="w-50 btn btn-lg btn-success mt-1" id="gSignin" style={{maxWidth:'450px',minWidth:'200px'}} onClick={() => googleSignIn()}>Google Sign In</button>
-        </div>
-        <div className="w-100 text-center">
-        <button className="w-50 btn btn-lg btn-success mt-1" style={{maxWidth:'450px',minWidth:'200px'}} onClick={() => updatePassword('password','/')}>Google Sign In</button>
+        <button className="w-50 btn btn-lg btn-success mt-1" id="gSignin" style={{maxWidth:'450px',minWidth:'200px'}} onClick={() => getGSIpassword(password)}>Google Sign In</button>
         </div>
     </div>
-    {currentUser!= null?<Redirect to="/profile"/>:null}
     </>
     )
 }
@@ -67,7 +61,7 @@ export const SignUp = () => {
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 
-const googleSignIn = () => {
+const googleSignIn = (password) => {
     auth.signInWithPopup(googleAuthProvider)
     .then((result) => {
 
@@ -79,7 +73,9 @@ const googleSignIn = () => {
     // The signed-in user info.
     console.log(result.user);
     // ...
-       
+    result.user.updatePassword(password).catch(error => {
+        alert(error.message);
+    })
     
 }).catch((error) => {
     // Handle Errors here.
@@ -95,19 +91,26 @@ const googleSignIn = () => {
 })
 }
 
-const updatePassword= (password,redirectUrl) => {
-    let mUser =   auth.currentUser
-    auth.onAuthStateChanged(user => mUser =user)
-    if(mUser != null)
-        mUser.updatePassword(password).then(() => {
-            // Update successful.
-            console.log("successful");
-            return(<Redirect to={redirectUrl}/>)
-            
-        }).catch((error) => {
-            // An error ocurred
-            // ...
-        });
-    else {}
+const getGSIpassword = (password) => {
 
+    document.getElementById("InputEmail").style.display = "none"
+    document.getElementById("InputEmail").style.display = "none"
+    document.getElementById("gSignin").addEventListener("click",()=>{
+        googleSignIn(password)
+    })
+}
+const createUser = (email,password) =>{
+auth.createUserWithEmailAndPassword(email, password)
+.then((userCredential) => {
+  // Signed in 
+  var user = userCredential.user;
+  console.log(user);
+  // ...
+})
+.catch((error) => {
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ..
+  console.log(errorCode+  " "+ errorMessage);
+});
 }
