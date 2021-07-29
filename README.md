@@ -2,7 +2,7 @@
 
 THis is a test blogging Applicaton for JUSC .
 
-![IMG](public\assets\image\jusc-logo.png)
+![IMG](./jusc-logo.png)
 
 This app is build using ReactJS, Node JS with Firebase as an database 
 
