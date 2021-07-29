@@ -10,19 +10,19 @@ import { ScrollTop } from './Components/items/ScrollTop';
 import { Logout } from './Components/Logout';
 import firebaseApp from './firebase/base';
 import { useState } from 'react';
+import { BlogItem } from './Components/items/BlogItem';
 
 const auth = firebaseApp.auth()
 
-
 function App() {
 
-  const [currentUser, setcurrentUser] = useState(auth.currentUser)
-  auth.onAuthStateChanged(user=>setcurrentUser(user))
+const [currentUser, setcurrentUser] = useState(auth.currentUser)
+auth.onAuthStateChanged(user=>setcurrentUser(user))
 
-  return (
+    return (
     <Router>
-      <NavBar/>
-      <Switch>
+        <NavBar/>
+        <Switch>
         <Route exact path="/">
             <Home/>
         </Route>
@@ -35,20 +35,23 @@ function App() {
         <Route exact path="/logout">
             <Logout currentUser={currentUser}/>
         </Route>
-        <Route path="/user">
+        <Route path="/user/:id">
             <User currentUser={currentUser}/>
         </Route>
         <Route path="/privacy-policy">
-            <></>
+            <div/>
         </Route>
         <Route path="/terms-and-conditions">
-            <></>
+            <div/>
         </Route>
-      </Switch>
-      <ScrollTop/>
-      <Footer/>
+        <Route path="/blog-item">
+            <BlogItem blog={{text: "hi",title: "HIII",link: "/"}}/>
+        </Route>
+        </Switch>
+        <ScrollTop/>
+        <Footer/>
     </Router>
-  );
+    );
 }
 
 export default App;

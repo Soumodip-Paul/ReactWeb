@@ -21,7 +21,7 @@ export const SignUp = ({currentUser}) => {
 
     return (
     <>
-    {currentUser!= null?<Redirect to={"/user"}/>:null}
+    {currentUser!= null?<Redirect to={"/user/"+currentUser.uid}/>:null}
     <div className="sign_in my-5" height="100vh">
     <form className="mx-auto my-2 w-50 d-flex" style={{
         minWidth: '200px',
