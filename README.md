@@ -79,4 +79,4 @@ const firebaseConfig = {
 ### ToDo
 
 - [x] - created using react
-- [] - Add a node backend.
+- [ ] - Add a node backend.
