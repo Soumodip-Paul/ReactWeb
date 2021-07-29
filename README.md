@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# JUSC BLOG
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+THis is a test blogging Applicaton for JUSC .
 
-## Available Scripts
+![IMG](public\assets\image\jusc-logo.png)
 
-In the project directory, you can run:
+This app is build using ReactJS, Node JS with Firebase as an database 
 
-### `npm start`
+## How to run the project?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone this repository in your local system.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. Open the command prompt from your project directory and run the command `npm start`.
 
-### `npm test`
+3. Go to your browser and type `http://127.0.0.1:3000/` in the address bar.<br/>`or`<br/>You can type
+`localhost:3000` in the address bar .
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Create a `.env` file in your project level  directory.
 
-### `npm run build`
+5. Create a firebase project and then copy the credentials in `.env` file of your root directory like
+    <br/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```js
+    REACT_APP_API_KEY = firebase_api_key...
+    REACT_APP_PROJECT_ID = your_firebase_project_id
+    REACT_APP_AUTH_DOMAIN = your_firebase_project_id.firebaseapp.com
+    REACT_APP_STORAGE_BUCKET = your_firebase_project_id.appspot.com
+    REACT_APP_MESSAGING_SENDER_ID = your_messaging id
+    REACT_APP_APP_ID = your_app_id
+    REACT_APP_MEASUREMENT_ID = your_measurement_id
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. Hurray! That's it.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to create a firebase Project
 
-### `npm run eject`
+1. Go to [Firebase Console](https://console.firebase.google.com "Open firebase Console")
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Click add new Project.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Follow the On screen instructions.<br/>
+> Note: You donot need to copy the Firebase SDK file as they are included in this project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. Here is your credentials inside the  `firebaseConfig` 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```js
 
-## Learn More
+const firebaseConfig = {
+  apiKey: "firebase_api_key...",
+  projectId: "your_firebase_project_id",
+  authDomain: "your_firebase_project_id.firebaseapp.com",
+  storageBucket: "your_firebase_project_id.appspot.com",
+  messagingSenderId: "your_messaging id",
+  appId: "your_app_id",
+  measurementId: "your_measurement_id"
+};
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+> Donot paste the ``"`` or any ``,`` in `.env` file constants.This will create problems
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## How to clone this project
 
-### Code Splitting
+***To clone this project***
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+*   Install git for your Computer<br/>
+    Download git from [here](https://git-scm.com/downloads) and install
 
-### Analyzing the Bundle Size
+*   Goto the folder to computer your where you want to clone the project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+*   Open `Terminal` (For _Linux_ and _Os X_) or `PowerShell` (for _Windows_)
 
-### Making a Progressive Web App
+*   Paste this Command
+    ```bash
+    git clone https://github.com/Soumodip-Paul/ReactWeb.git
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+*   This project is cloned in your device
 
-### Advanced Configuration
+### ToDo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [x] - created using react
+- [] - Add a node backend.
