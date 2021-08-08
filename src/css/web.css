@@ -70,6 +70,14 @@ body {
   letter-spacing: -.05rem;
 }
 
+*.roboto {
+  font-family: 'Roboto',serif;
+}
+
+*.roboto-slab {
+  font-family: 'Roboto Slab',serif;
+}
+
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */

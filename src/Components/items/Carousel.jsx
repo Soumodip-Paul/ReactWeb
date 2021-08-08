@@ -26,9 +26,9 @@ export const Carousel = () => {
 
             <div className="container">
             <div className="carousel-caption">
-                <img src="./assets/image/jusc-logo.png" width="120px" height="120px" className="d-block rounded-circle text-center mx-auto" alt="JUSC"/> 
-                <h1 style={{color:'#0ff'}}>Welcome JUSC</h1>
-                <p>Jadavpur University Science Club welcomes you here</p>
+                <img src="./assets/image/cool developer.png" width="120px" height="120px" className="d-block rounded-circle text-center mx-auto" alt="JUSC"/> 
+                <h1 className="text-white roboto">Welcome to Cool Developer</h1>
+                <p className="roboto-slab">Cool Developer Official Website welcomes you</p>
                 <p><a className="btn btn-lg btn-outline-light" href="https://google.com">Learn more</a></p>
             </div>
             </div>
