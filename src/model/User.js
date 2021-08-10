@@ -15,3 +15,17 @@ export class User {
         }
     }
 }
+export const userConverter = {
+    toFirestore: function(user) {
+        return {
+            name: user.name,
+            email: user.email,
+            imageUrl: user.imageUrl,
+            uid: user.uid
+            };
+    },
+    fromFirestore: function(snapshot, options){
+        const data = snapshot.data(options);
+        return new User(data.name, data.email, data.imageUrl,data.uid);
+    }
+};

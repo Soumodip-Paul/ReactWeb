@@ -30,7 +30,7 @@ export const Login = ({currentUser}) => {
                 alignItems: 'center',
                 maxWidth: '450px'
             }} onSubmit={submit}>
-                <img className="mb-4" src="../assets/image/jusc-logo.png" alt="" width="96px" height="96px" />
+                <img className="mb-4 rounded-circle" src="../assets/image/cool developer.png" alt="" width="96px" height="96px" />
                 <h1 className="h3 mb-3 fw-normal">Please Log In</h1>
 
                 <div className="form-floating w-100">
