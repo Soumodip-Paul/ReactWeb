@@ -4,11 +4,14 @@ import "firebase/firestore"
 import { BlogItem } from './items/BlogItem';
 
 const blogRef = firebaseApp.firestore().collection("blogs").orderBy("time","desc").limit(25);
-export const Blog = () => {
+export const Blog = ({darkMode}) => {
     const [info , setInfo] = useState([])
     const [visibility, setvisibility] = useState("block")
     const [isError, setError] = useState(false)
     const [message, setMessage] = useState("")
+    const backGround = `bg-${darkMode?"secondary":"white"}`
+    const textColor = `text-${darkMode?"light":"dark"}`
+    const color = `${darkMode?"warning":"success"}`
   
     // Start the fetch operation as soon as
     // the page loads
@@ -40,8 +43,8 @@ export const Blog = () => {
         fetchdata()
     }
     return (
-        <div className="p-0 m-0" style={{minHeight: "82.3vh"}}>
-            {!isError ? <div className="spinner-border text-success" role="status" 
+        <div className={`p-0 m-0 ${backGround} ${textColor}`} style={{minHeight: "82.3vh"}}>
+            {!isError ? <div className={"spinner-border text-"+color} role="status" 
             style={{
                 display: visibility,
                 position: "absolute",
@@ -65,7 +68,7 @@ export const Blog = () => {
                 Reload
             </button>
             </div> }
-            {info.map(i => (<BlogItem key={i.time} blog={i}/>))}
+            {info.map(i => (<BlogItem darkTheme={{backGround: backGround,textColor: textColor,color:color}} key={i.time} blog={i}/>))}
         </div>
     )
 }

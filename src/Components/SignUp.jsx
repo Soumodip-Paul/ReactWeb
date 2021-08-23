@@ -3,11 +3,12 @@ import firebaseApp from '../firebase/base'
 import firebase from 'firebase'
 import 'firebase/auth'
 import { Redirect } from 'react-router-dom'
+import { uploadUser } from '../model/User'
 
 const auth = firebaseApp.auth()
 const userRef =firebaseApp.firestore().collection("user")
 
-export const SignUp = ({currentUser}) => {
+export const SignUp = ({currentUser,darkMode}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -16,16 +17,16 @@ export const SignUp = ({currentUser}) => {
     const [gSignIn2, setgSignIn2] = useState(false)
     const [providerEmail, setproviderEmail] = useState("")
     const [isSigning, setisSigning] = useState(false)
+    const backGround = `bg-${darkMode?"secondary":"white"}`
+    const textColor = `text-${darkMode?"light":"dark"}`
     
     auth.onAuthStateChanged(user=> {
         if(user==null){
-            setEmail("")
-            setPassword("")
-            setRemember(true)
-            setdisplayEmail("block")
-            setgSignIn2(false)
-            setproviderEmail("")
-            setisSigning(false)
+            // setRemember(true)
+            // setdisplayEmail("block")
+            // setgSignIn2(false)
+            // setproviderEmail("")
+            // setisSigning(false)
         }
     })
 
@@ -56,6 +57,7 @@ const googleSignIn = () => {
         .get()
         .then(doc => {
             if(doc.exists) {
+                auth.signOut()
                 alert("User already exists")
                 return
             }
@@ -63,11 +65,10 @@ const googleSignIn = () => {
                 setproviderEmail(user.email)
                 setdisplayEmail("none")
                 setgSignIn2(true)
-                //userRef.doc(user.uid).set()
             }
         })
         .catch(error => {
-            user.signOut()
+            auth.signOut()
             console.log(error);
         })
     
@@ -85,12 +86,12 @@ const googleSignIn = () => {
 })
 }
 
-const updatePassword = (password) => {
+const updatePassword = (currentUser,password) => {
     currentUser.updatePassword(password)
     .then(() =>{
-        
+        uploadUser(currentUser)
+        setisSigning(false)
     }
-        // setisSigning(false)
     )
     .catch(error => {
         auth.signOut()
@@ -114,26 +115,26 @@ auth.createUserWithEmailAndPassword(email, password)
 });
 }
 return (
-    <>
+    <div className={`m-0 p-5 ${backGround} ${textColor}`} style={{height:"82.3vh"}}>
     {currentUser!= null && !isSigning?<Redirect to={"/user/"+currentUser.uid}/>:null}
-    <div className="sign_in my-5" style={{minHeight: "70vh"}}>
-    <form className="mx-auto my-2 w-50 d-flex" style={{
+    <div className="sign_in ">
+    <form className="mx-auto w-50 d-flex" style={{
         minWidth: '200px',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         maxWidth: '450px'
     }}  onSubmit={submit}>
-        <img className="mb-4 rounded-circle" src="../assets/image/cool developer.png" alt="" width="96px" height="96px"/>
+        <img className="rounded-circle" src="../assets/image/cool developer.png" alt="" width="96px" height="96px"/>
         {providerEmail != null && providerEmail.length !== 0? <h5 className="mb-4">Continue as <em className="text-primary">{providerEmail}</em></h5>: <h1 className="h3 mb-3 fw-normal">Please sign in</h1>}
 
         <div className="form-floating w-100">
         <input type="email" className="form-control" id="InputEmail" style={{display: displayEmail}} placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)}/>
-        <label htmlFor="InputEmail">Email address</label>
+        <label htmlFor="InputEmail" className={darkMode?"text-dark":""}>Email address</label>
         </div>
         <div className="form-floating w-100">
         <input type="password" className="form-control" id="InputPassword" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
-        <label htmlFor="InputPassword">Password</label>
+        <label htmlFor="InputPassword" className={darkMode?"text-dark":""}>Password</label>
         </div>
 
         <div className="checkbox m-3 w-100">
@@ -144,11 +145,11 @@ return (
         {!gSignIn2?<button className="w-100 btn btn-lg btn-primary" id="emailSignIn" type="submit">Sign Up</button>:null}
     </form>
         <div className="w-100 text-center">
-        {gSignIn2?<button className="w-50 btn btn-lg btn-success mt-1" id="gSignin2" style={{maxWidth:'450px',minWidth:'200px'}} onClick={() =>updatePassword(password)}>Confirm</button>:
+        {gSignIn2?<button className="w-50 btn btn-lg btn-success mt-1" id="gSignin2" style={{maxWidth:'450px',minWidth:'200px'}} onClick={() =>updatePassword(currentUser,password)}>Confirm</button>:
         <button className="w-50 btn btn-lg btn-success mt-1" id="gSignin" style={{maxWidth:'450px',minWidth:'200px'}} onClick={() =>  googleSignIn()}>Sign In By Google</button>
 }
 </div>
     </div>
-    </>
+    </div>
     )
 }

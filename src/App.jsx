@@ -19,41 +19,43 @@ function App() {
 
 const [currentUser, setcurrentUser] = useState(auth.currentUser)
 auth.onAuthStateChanged(user=>setcurrentUser(user))
+const [darkMode, setDarkMode] = useState(true)
+const updateTheme = (booleanValue) =>   setDarkMode(booleanValue)
 
     return (
     <Router>
-        <NavBar showSearch={false}/>
+        <NavBar showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme}/>
         <Switch>
         <Route exact path="/">
-            <Home/>
+            <Home darkMode={darkMode}/>
         </Route>
         <Route exact path="/login">
-            <Login  currentUser={currentUser}/>
+            <Login  currentUser={currentUser} darkMode={darkMode}/>
         </Route>
         <Route exact path="/signup">
-            <SignUp  currentUser={currentUser}/>
+            <SignUp  currentUser={currentUser} darkMode={darkMode}/>
         </Route>
         <Route exact path="/user/">
-            <Redirect to={currentUser!=null?"./" + currentUser.uid:"/login"}/>
+            <Redirect to={currentUser!=null?"./" + currentUser.uid:"/login"} darkMode={darkMode}/>
         </Route>
         <Route path="/user/:id">
-            <User currentUser={currentUser}/>
+            <User currentUser={currentUser} darkMode={darkMode}/>
         </Route>
         <Route path="/blog">
-            <Blog currentUser={currentUser}/>
+            <Blog currentUser={currentUser} darkMode={darkMode}/>
         </Route>
         <Route path="/privacy-policy">
-            <div style={{minHeight: "82.3vh"}} />
+            <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
         </Route>
         <Route path="/terms-and-conditions">
-        <div style={{minHeight: "82.3vh"}} />
+        <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
         </Route>
         <Route>
-            <PageNotFound/>
+            <PageNotFound darkMode={darkMode}/>
         </Route>
         </Switch>
-        <ScrollTop/>
-        <Footer/>
+        <ScrollTop darkMode={darkMode}/>
+        <Footer darkMode={darkMode}/>
     </Router>
     );
 }

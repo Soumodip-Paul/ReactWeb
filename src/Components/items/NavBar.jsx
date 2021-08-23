@@ -7,14 +7,14 @@ import 'firebase/auth'
 const auth = firebaseApp.auth()
 
 
-export const NavBar = ({showSearch}) => {
+export const NavBar = ({showSearch,darkMode,onUpdateTheme}) => {
 const [currentUser, setcurrentUser] = useState(auth.currentUser)
 auth.onAuthStateChanged(user => {
     setcurrentUser(user)
 })
 return (
 <header>
-    <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="#top" style={{fontFamily: "'Roboto Slab', serif"}}>
+    <nav className={`navbar navbar-expand-md navbar-${darkMode?"dark":"light"} fixed-top bg-${darkMode?"dark":"light"}`} id="#top" style={{fontFamily: "'Roboto Slab', serif"}}>
     <div className="container-fluid">
         <Link className="navbar-brand" to="/" >
         <img style={{ height: '32px', width: '32px', borderRadius: '50%' }} src="/assets/image/cool developer.png" alt="JUSC" />
@@ -62,6 +62,7 @@ return (
             }
         {currentUser== null ?<Link className="btn btn-success mx-1" to="/signup" >Sign In</Link>:
             null }
+        <button className={`btn btn-outline-${darkMode?"light":"dark"} mx-1`} onClick={()=>onUpdateTheme(!darkMode)}>{darkMode?"Light":"Dark"}</button>
         </div>
     </div>
     </nav>

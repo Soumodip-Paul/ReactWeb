@@ -7,11 +7,13 @@ import "firebase/auth"
 const auth = firebaseApp.auth()
 
 
-export const Login = ({currentUser}) => {
+export const Login = ({currentUser,darkMode}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [remember, setRemember] = useState(true)
+    const backGround = `bg-${darkMode?"secondary":"white"}`
+    const textColor = `text-${darkMode?"light":"dark"}`
 
     const submit = (e) => {
         e.preventDefault()
@@ -20,10 +22,10 @@ export const Login = ({currentUser}) => {
     }
 
     return (
-        <>
+        <div className={`m-0 p-5 ${backGround} ${textColor}`} style={{height:"82.3vh"}}>
         {currentUser != null ? <Redirect to="/" /> : null}
-        <div className="sign_in my-5" height="100vh">
-            <form className="mx-auto my-2 w-50 d-flex" style={{
+        <div className="sign_in">
+            <form className="mx-auto w-50 d-flex" style={{
                 minWidth: '200px',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -35,11 +37,11 @@ export const Login = ({currentUser}) => {
 
                 <div className="form-floating w-100">
                     <input type="email" className="form-control" id="InputEmail" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-                    <label htmlFor="InputEmail">Email address</label>
+                    <label htmlFor="InputEmail" className={darkMode?"text-dark":""}>Email address</label>
                 </div>
                 <div className="form-floating w-100">
                     <input type="password" className="form-control" id="InputPassword" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-                    <label htmlFor="InputPassword">Password</label>
+                    <label htmlFor="InputPassword" className={darkMode?"text-dark":""}>Password</label>
                 </div>
 
                 <div className="checkbox m-3 w-100">
@@ -54,7 +56,7 @@ export const Login = ({currentUser}) => {
                 <button className="w-50 btn btn-lg btn-success mt-1" id="gSignin" style={{ maxWidth: '450px', minWidth: '200px' }} onClick={() => googleSignIn()}>Google Sign In</button>
             </div>
         </div>
-        </>
+        </div>
     )
 }
 

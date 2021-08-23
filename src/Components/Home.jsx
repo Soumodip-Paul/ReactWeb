@@ -2,11 +2,13 @@ import React from 'react'
 import { Carousel } from './items/Carousel'
 
 
-export const Home = () => {
+export const Home = ({darkMode}) => {
+    const backGround = `bg-${darkMode?"secondary":"white"}`
+    const textColor = `text-${darkMode?"light":"dark"}`
     return (
-    <>
+    <div className={"m-0 p-0 "+backGround+" "+textColor}>
     <Carousel/>
-    <div className="container marketing">       
+    <div className="container marketing ">       
         <div className="row">
         <div className="col-lg-4">
             <svg className="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
@@ -69,8 +71,8 @@ export const Home = () => {
 
         </div>
         </div>
-        <hr className="featurette-divider"/>
+        <hr className="featurette-divider mb-0"/>
         </div>
-    </>
+    </div>
     )
 }

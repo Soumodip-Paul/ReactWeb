@@ -1,3 +1,6 @@
+import firebaseApp from "../firebase/base"
+import "firebase/firestore"
+
 export class User {
     constructor(name,email,imageUrl,uid){
         this.name = name
@@ -29,3 +32,9 @@ export const userConverter = {
         return new User(data.name, data.email, data.imageUrl,data.uid);
     }
 };
+
+export const uploadUser = async (user) => {
+    
+    const userRef =firebaseApp.firestore().collection("user")
+    userRef.doc(user.uid).withConverter(userConverter).set(new User(user.displayName,user.email,user.photoURL,user.uid))
+}
