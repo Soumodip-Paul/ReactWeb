@@ -8,8 +8,8 @@ export const ScrollTop = ({darkMode}) => {
         else setright('-60px')
     })
     )
-    const backGround = `bg-${!darkMode?"dark":"light"}`
-    const textColor = `text-${!darkMode?"light":"dark"}`
+    const backGround = `bg-${darkMode?"dark":"light"}`
+    const textColor = `text-${darkMode?"light":"dark"}`
     return (
         
         <span  className={"m-3 mb-2 text-center rounded-circle material-icons material-icons-outlined p-2 "+backGround+" "+textColor}

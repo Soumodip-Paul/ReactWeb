@@ -26,7 +26,7 @@ export const Carousel = () => {
 
             <div className="container">
             <div className="carousel-caption">
-                <img src="./assets/image/cool developer.png" width="120px" height="120px" className="d-block rounded-circle text-center mx-auto" alt="JUSC"/> 
+                <img src="./assets/image/cool developer.gif" width="200px" height="200px" className="d-block my-4 rounded-circle text-center mx-auto" alt="JUSC"/> 
                 <h1 className="text-white roboto">Welcome to Cool Developer</h1>
                 <p className="roboto-slab">Cool Developer Official Website welcomes you</p>
                 <p><a className="btn btn-lg btn-outline-light" href="https://google.com">Learn more</a></p>
