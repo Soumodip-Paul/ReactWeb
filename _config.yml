@@ -3,3 +3,4 @@ title: "Cool Developer Website"
 permalink: /projects/ReactWeb
 remote_theme: minima
 show_downloads: true
+theme: jekyll-theme-cayman
