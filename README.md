@@ -82,9 +82,3 @@ const firebaseConfig = {
 
 - [x] - created using react
 - [ ] - Add a node backend.
-
-### Support Us
-
-<script src="https://apis.google.com/js/platform.js"></script>
-
-<div class="g-ytsubscribe" data-channelid="UCOFwfN-LJ7wGvAOovAwpjxg" data-layout="full" data-theme="dark" data-count="hidden"></div>
