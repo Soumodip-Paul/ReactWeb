@@ -29,11 +29,11 @@ social-network-links:
 #  ORCID: your ORCID ID
 #  google-scholar: your google scholar
 
-share-links-active:
-  twitter: false
-  facebook: true
-  linkedin: true
-  vk: false
+# share-links-active:
+#   twitter: true
+#   facebook: false
+#   linkedin: true
+#   vk: false
 
 navbar-col: "#EAEAEA"
 navbar-text-col: "#404040"
