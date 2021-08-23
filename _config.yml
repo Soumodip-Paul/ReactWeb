@@ -3,3 +3,46 @@ title: "Cool Developer Website"
 permalink: /projects/ReactWeb
 show_downloads: true
 theme: jekyll-theme-cayman
+
+social-network-links:
+  email: "someone@example.com"
+  # facebook: deanattali
+  github: Soumodip_paul
+  twitter: soumodippaul6
+  # patreon: DeanAttali
+  youtube: c/daattali
+#  medium: yourname
+#  reddit: yourname
+ linkedin: SoumodipPaul64
+#  xing: yourname
+#  stackoverflow: "3943160/daattali"
+#  snapchat: deanat78
+#  instagram: deanat78
+#  spotify: yourname
+#  telephone: +14159998888
+#  steam: deanat78
+#  twitch: yourname
+#  yelp: yourname
+#  telegram: yourname
+#  calendly: yourname
+#  mastodon: instance.url/@username
+#  ORCID: your ORCID ID
+#  google-scholar: your google scholar
+
+share-links-active:
+  twitter: false
+  facebook: true
+  linkedin: true
+  youtube: true
+  vk: false
+
+navbar-col: "#EAEAEA"
+navbar-text-col: "#404040"
+navbar-border-col: "#DDDDDD"
+page-col: "#FFFFFF"
+text-col: "#404040"
+link-col: "#008AFF"
+hover-col: "#0085A1"
+footer-col: "#EAEAEA"
+footer-text-col: "#777777"
+footer-link-col: "#404040"
