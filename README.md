@@ -1,6 +1,8 @@
-# JUSC BLOG
+# COOL DEVELOPER BLOG
 
-THis is a test blogging Applicaton for JUSC .
+This is a test blogging Applicaton for Cool Developer Bangla youtube channel.
+[Click here](https://www.youtube.com/channel/UCOFwfN-LJ7wGvAOovAwpjxg?sub_confirmation=1 "Subscribe") 
+to subscribe Us.
 
 ![IMG](./public/assets/image/Cool%20developer.gif)
 
