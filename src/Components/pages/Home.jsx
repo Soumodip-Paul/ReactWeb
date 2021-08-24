@@ -1,5 +1,5 @@
 import React from 'react'
-import { Carousel } from './items/Carousel'
+import { Carousel } from '../items/Carousel'
 
 
 export const Home = ({darkMode}) => {

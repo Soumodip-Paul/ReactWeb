@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#000000" />
 <meta
     name="description"
-    content="Web site created using create-react-app"
+    content="Cool Developer bangla official blogging site"
 />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -63,11 +63,49 @@ code{
 }
 </style>
 <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-<title>React App</title>
+<title>Cool Developer Official Blog</title>
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- Script for Animated title -->
+    <script >
+        var rev = "fwd";
+        function titlebar(val){
+            var msg  = "Welcome to Cool Developer Official Blog";
+            var res = " ";
+            var speed = 100;
+            var pos = val;
+            msg = "   "+msg+" ";
+            var le = msg.length;
+            if(rev == "fwd"){
+                if(pos < le){
+                    pos = pos+1;
+                    scroll = msg.substr(0,pos);
+                    document.title = scroll;
+                    timer = window.setTimeout("titlebar("+pos+")",speed);
+                }
+                else {
+                    rev = "bwd";
+                    timer = window.setTimeout("titlebar("+pos+")",speed);
+                }
+            }
+            else {
+                if(pos > 0) {
+                    pos = pos-1;
+                    var ale = le-pos;
+                    scrol = msg.substr(ale,le);
+                    document.title = scrol;
+                    timer = window.setTimeout("titlebar("+pos+")",speed);
+                }
+                else {
+                    rev = "fwd";
+                    timer = window.setTimeout("titlebar("+pos+")",speed);
+                }
+            }
+        }
+        titlebar(0);
+    </script>
   </body>
 </html>

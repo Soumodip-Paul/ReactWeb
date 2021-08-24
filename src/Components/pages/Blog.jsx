@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import firebaseApp from '../firebase/base'
+import firebaseApp from '../../firebase/base'
 import "firebase/firestore"
-import { BlogItem } from './items/BlogItem';
+import { BlogItem } from '../items/BlogItem';
 
 const blogRef = firebaseApp.firestore().collection("blogs").orderBy("time","desc").limit(25);
 export const Blog = ({darkMode}) => {

@@ -8,6 +8,7 @@ export const BlogView = ({darkMode}) => {
     const {id} = useParams()
     const backGround = `bg-${darkMode?"secondary":"white"}`
     const textColor = `text-${darkMode?"light":"dark"}`
+    const headerBackGround = `bg-${darkMode?"dark":"light"}`
     
     useEffect(()=> {
         getBlog(id).then((doc) => {
@@ -21,11 +22,13 @@ export const BlogView = ({darkMode}) => {
     }, [id])
 
     return (
-        <div style={{minHeight:"82.3vh"}}>
+        <div style={{minHeight:"80.6vh"}} className={backGround}>
         {blog!= null ?  
             <>
-            <h1 className={`p-2 m-0 w-100 text-center ${backGround} ${textColor}`}>{blog.title}</h1>
-            <p className={`px-4 pt-2 pb-4 m-0 ${backGround} ${textColor}`} dangerouslySetInnerHTML={{__html: blog.text}}></p>
+            <h1 className={`px-2 pt-2 pb-4 m-0 w-100 text-center ${headerBackGround} ${textColor}`}>{blog.title}</h1>
+            <div className="container">
+                <p className={`px-4 pt-2 pb-4 m-0 ${backGround} ${textColor}`} dangerouslySetInnerHTML={{__html: blog.text}}></p>
+            </div>
             </>
         :""}
         </div>

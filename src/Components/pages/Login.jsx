@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Redirect } from 'react-router'
-import firebaseApp from '../firebase/base'
+import firebaseApp from '../../firebase/base'
 import firebase from 'firebase'
 import "firebase/auth"
 

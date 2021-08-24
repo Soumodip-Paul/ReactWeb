@@ -1,9 +1,9 @@
 import React ,{useState}from 'react'
-import firebaseApp from '../firebase/base'
+import firebaseApp from '../../firebase/base'
 import firebase from 'firebase'
 import 'firebase/auth'
 import { Redirect } from 'react-router-dom'
-import { uploadUser } from '../model/User'
+import { uploadUser } from '../../model/User'
 
 const auth = firebaseApp.auth()
 const userRef =firebaseApp.firestore().collection("user")
