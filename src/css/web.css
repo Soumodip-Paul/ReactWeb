@@ -34,6 +34,18 @@ body {
   height: 32rem;
 }
 
+.yt-video {
+  width: 75%;
+  min-width: 300px;
+  aspect-ratio: 16/9;
+}
+
+.text-image {
+  width: 50%;
+  min-width: 300px;
+  aspect-ratio: 1;
+}
+
 
 
 /* MARKETING CONTENT

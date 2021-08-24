@@ -10,6 +10,8 @@ import firebaseApp from './firebase/base';
 import { useState } from 'react';
 import { Blog } from './Components/Blog';
 import { PageNotFound } from './Components/404';
+import { About } from './Components/About';
+import { BlogView } from './Components/items/BlogView';
 import 'firebase/auth'
 import './css/web.css'
 
@@ -41,14 +43,20 @@ const updateTheme = (booleanValue) =>   setDarkMode(booleanValue)
         <Route path="/user/:id">
             <User currentUser={currentUser} darkMode={darkMode}/>
         </Route>
-        <Route path="/blog">
+        <Route exact path="/blog">
             <Blog currentUser={currentUser} darkMode={darkMode}/>
+        </Route>
+        <Route path="/blog/:id">
+            <BlogView currentUser={currentUser} darkMode={darkMode}/>
         </Route>
         <Route path="/privacy-policy">
             <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
         </Route>
         <Route path="/terms-and-conditions">
-        <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
+            <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
+        </Route>
+        <Route path="/about">
+            <About darkMode={darkMode}/>
         </Route>
         <Route>
             <PageNotFound darkMode={darkMode}/>

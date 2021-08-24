@@ -31,6 +31,9 @@ return (
             <NavLink className="nav-link" activeClassName="active" to="/blog">Blogs</NavLink>
             </li>
             <li className="nav-item">
+            <NavLink className="nav-link" aria-current="page" activeClassName="active" exact to="/about">About</NavLink>
+            </li>
+            <li className="nav-item">
             {currentUser==null?null:<NavLink className="nav-link" activeClassName="active" to={"/user/"+currentUser.uid}>Profile</NavLink>}
             </li>
         </ul>

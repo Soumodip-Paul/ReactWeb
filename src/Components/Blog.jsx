@@ -27,6 +27,7 @@ export const Blog = ({darkMode}) => {
             // it in array to display
             querySnapshot.forEach(element => {
                 var data = element.data();
+                data.id = element.id;
                 setInfo(arr => [...arr , data]);
                   
             });
