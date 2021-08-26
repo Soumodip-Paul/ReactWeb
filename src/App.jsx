@@ -5,13 +5,13 @@ import { Footer } from './Components/pages/Footer';
 import { Login } from './Components/pages/Login';
 import { SignUp } from './Components/pages/SignUp';
 import { User } from './Components/pages/User';
-import { ScrollTop } from './Components/items/ScrollTop';
-import firebaseApp from './firebase/base';
+import { ScrollTop } from './Components/utils/ScrollTop';
 import { useState } from 'react';
 import { Blog } from './Components/pages/Blog';
 import { PageNotFound } from './Components/pages/404';
 import { About } from './Components/pages/About';
-import { BlogView } from './Components/items/BlogView';
+import { BlogView } from './Components/pages/BlogView';
+import firebaseApp from './firebase/base';
 import 'firebase/auth'
 import './css/web.css'
 
@@ -20,9 +20,9 @@ const auth = firebaseApp.auth()
 function App() {
 
 const [currentUser, setcurrentUser] = useState(auth.currentUser)
-auth.onAuthStateChanged(user=>setcurrentUser(user))
 const [darkMode, setDarkMode] = useState(true)
 const updateTheme = (booleanValue) =>   setDarkMode(booleanValue)
+auth.onAuthStateChanged(user=>setcurrentUser(user))
 
     return (
     <Router>

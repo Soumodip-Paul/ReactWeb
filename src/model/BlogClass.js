@@ -2,19 +2,17 @@ import firebaseApp from "../firebase/base"
 import "firebase/firestore"
 
 export class BlogClass {
-    constructor(title , text , link , time , id){
+    constructor(title , text , uid , time ){
         this.title = title
         this.text = text
-        this.link = link
+        this.uid = uid
         this.time = time
-        this.id = id
     }
     toObject(){
         return {
             title: this.title,
             text: this.text,
-            link: this.link,
-            id: this.id,
+            uid: this.uid,
             time : this.text
         }
     }
@@ -24,20 +22,19 @@ export const blogConverter = {
         return {
             title: this.title,
             text: this.text,
-            link: this.link,
-            id: this.id,
+            uid: this.uid,
             time : this.text
             };
     },
     fromFirestore: function(snapshot, options){
         const data = snapshot.data(options);
-        return new BlogClass(data.title, data.text, data.link,data.time,data.id);
+        return new BlogClass(data.title, data.text, data.uid,data.time);
     }
 };
-export const uploadBlog = async (user) => {
+export const uploadBlog = async (data) => {
     
     const blogRef =firebaseApp.firestore().collection("blogs")
-    blogRef.doc(user.uid).withConverter(blogConverter).set(new BlogClass(user.displayName,user.email,user.photoURL,user.uid))
+    blogRef.doc(data.uid).withConverter(blogConverter).set(new BlogClass(data.title, data.text, data.uid,data.time))
 }
 
 export const getBlog = (id) => {

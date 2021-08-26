@@ -1,111 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#000000" />
-<meta
-    name="description"
-    content="Cool Developer bangla official blogging site"
-/>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="keywords" content="HTML, CSS, JavaScript,React,React JS,Firebase,FrontEnd,BackEnd" />
+    <meta name="author" content="Soumodip Paul" />
+    <meta property="og:url"         content="%PUBLIC_URL%" />
+    <meta property="og:type"        content="article" />
+    <meta property="og:title"       content="Cool Developer Bangla - Learn HTML , CSS , JavaScript in Bengali" />
+    <meta property="og:image"       content="%PUBLIC_URL%/android-chrome-512x512.png" />
+    <meta 
+        property="og:description" 
+        content="Cool Developer Bangla is the write place to learn HTML,CSS,JavaScript,React JS,Node JS.Learn FrontEnd Development, BackEnd Development and Android Development in Bengali. Video Tutorials , YouTube Videos are also there." />
+    <meta
+        name="description"
+        content="Cool Developer Bangla is the write place to learn HTML,CSS,JavaScript,React JS,Node JS.Learn FrontEnd Development, BackEnd Development and Android Development in Bengali. Video Tutorials , YouTube Videos are also there."/>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link href='/android-chrome-192x192.png' rel='image_src'/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Cool Developer Bangla - Learn Html , CSS , JavaScript in Bengali - Coding is Bengali</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
 
-.carousel-indicators [data-bs-target]{
-    width: 5px;
-    height: 5px;
-    margin-right: 5px;
-    border-radius: 50%;
-    border: 1px solid white;
-    background: transparent;
-    transition: all 0.5s ease-in-out;
-}
+        .carousel-indicators [data-bs-target]{
+            width: 5px;
+            height: 5px;
+            margin-right: 5px;
+            border-radius: 50%;
+            border: 1px solid white;
+            background: transparent;
+            transition: all 0.5s ease-in-out;
+        }
 
-.carousel-indicators [data-bs-target].active {
-    background: white;
-}
+        .carousel-indicators [data-bs-target].active {
+            background: white;
+        }
 
-@media (min-width: 768px) {
-.bd-placeholder-img-lg {
-    font-size: 3.5rem;
-}
-}
-.form-control{
-    margin-bottom: 5px;
-}
+        .accordion-button::after {
+            filter: invert(1);
+        }
 
-code{
-    background-color: aliceblue;
-    padding-left: 2px;
-    padding-right: 2px;
-    margin-right: 2px;
-    margin-left: 2px;
-    border-radius: 2px;
-}
+        @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+        }
+        .form-control{
+            margin-bottom: 5px;
+        }
 
-* {
-    transition: all 0.4s ease-in-out;
-}
-</style>
-<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-<title>Cool Developer Official Blog</title>
+        code{
+            background-color: aliceblue;
+            padding-left: 2px;
+            padding-right: 2px;
+            margin-right: 2px;
+            margin-left: 2px;
+            border-radius: 2px;
+        }
+
+        * {
+            transition: all 0.4s ease-in-out;
+        }
+    </style>
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="/bootstrap/bootstrap.bundle.min.js"></script>
-    <!-- Script for Animated title -->
-    <script >
-        var rev = "fwd";
-        function titlebar(val){
-            var msg  = "Welcome to Cool Developer Official Blog";
-            var res = " ";
-            var speed = 100;
-            var pos = val;
-            msg = "   "+msg+" ";
-            var le = msg.length;
-            if(rev == "fwd"){
-                if(pos < le){
-                    pos = pos+1;
-                    scroll = msg.substr(0,pos);
-                    document.title = scroll;
-                    timer = window.setTimeout("titlebar("+pos+")",speed);
-                }
-                else {
-                    rev = "bwd";
-                    timer = window.setTimeout("titlebar("+pos+")",speed);
-                }
-            }
-            else {
-                if(pos > 0) {
-                    pos = pos-1;
-                    var ale = le-pos;
-                    scrol = msg.substr(ale,le);
-                    document.title = scrol;
-                    timer = window.setTimeout("titlebar("+pos+")",speed);
-                }
-                else {
-                    rev = "fwd";
-                    timer = window.setTimeout("titlebar("+pos+")",speed);
-                }
-            }
-        }
-        titlebar(0);
-    </script>
   </body>
 </html>

@@ -7,7 +7,7 @@ export const BlogItem = ({blog,darkTheme}) => {
     return (
         <div style={{fontFamily: 'Roboto Slab'}} className={`${darkTheme.backGround} ${darkTheme.textColor} py-3 px-5 mb-1 mx-5"`}>
             <h2 style={{fontFamily: 'Roboto'}}>{blog.title}</h2>
-            <p>{blog.text.split('.')[0]}.</p>
+            <p style={{fontFamily:  "'Roboto Slab',serif"}}>{blog.text.split('.')[0]}.</p>
             <Link to={"/blog/"+blog.id+"/"+blog.link} className={"px-2 btn btn-outline-"+darkTheme.color}>Read More</Link>
             <hr />
         </div>
