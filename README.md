@@ -60,6 +60,21 @@ const firebaseConfig = {
 ```
 > Donot paste the ``"`` or any ``,`` in `.env` file constants.This will create problems
 
+5. Goto Authentication and enable **Email sign in** and Google **Sign In** for your project
+
+6. Go to Firebse Firestore and then click Rules Tab and paste
+
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+```
+
 ## How to clone this project
 
 ***To clone this project***

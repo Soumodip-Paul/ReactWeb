@@ -21,13 +21,12 @@ export const Blog = ({darkMode}) => {
   
     // Fetch the required data using the get() method
     const fetchdata = () => {
-        blogRef.get().then((querySnapshot) => {
+        blogRef/*.where("draft","==",false)*/.get().then((querySnapshot) => {
              
             // Loop through the data and store
             // it in array to display
             querySnapshot.forEach(element => {
                 var data = element.data();
-                data.id = element.id;
                 setInfo(arr => [...arr , data]);
                   
             });
@@ -64,7 +63,7 @@ export const Blog = ({darkMode}) => {
                     textAlign: "center",
                 }}>
             <h4> Ooops! some error has  been occured </h4><br />
-            <em>{message}</em><br />
+            <em className="text-break">{message}</em><br />
             <button className="btn btn-outline-danger m-3" type="button" onClick={()=> reFetch()}>
                 Reload
             </button>

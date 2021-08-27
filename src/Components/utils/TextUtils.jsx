@@ -6,7 +6,7 @@ export const renderBold = (text) => {
     const replace = ['<strong>','</strong>'];
     for (var i = 0; i < find.length; i++) {
         text = text.replace(find[i], replace[i]);
-      }
+    }
     return text;
 }
 export const renderItalics = (text) => {
@@ -22,7 +22,7 @@ export const renderUnderline = (text) => {
     const replace = ['<span class="text-decoration-underline">','</span>'];
     for (var i = 0; i < find.length; i++) {
         text = text.replace(find[i], replace[i]);
-      }
+    }
     return text;
 }
 export const renderStrike = (text) => {
@@ -30,11 +30,11 @@ export const renderStrike = (text) => {
     const replace = ['<span class="text-decoration-line-through">','</span>'];
     for (var i = 0; i < find.length; i++) {
         text = text.replace(find[i], replace[i]);
-      }
+    }
     return text;
 }
 
-const renderAll = (text) => {
+export const renderAll = (text) => {
     text = renderBold(text)
     text = renderUnderline(text)
     text = renderItalics(text)
@@ -43,5 +43,3 @@ const renderAll = (text) => {
     text = changeYoutubeVideo(text)
     return text
 }
-
-export default renderAll

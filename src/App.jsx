@@ -14,6 +14,7 @@ import { BlogView } from './Components/pages/BlogView';
 import firebaseApp from './firebase/base';
 import 'firebase/auth'
 import './css/web.css'
+import { UploadBlog } from './Components/pages/UploadBlog';
 
 const auth = firebaseApp.auth()
 
@@ -49,14 +50,17 @@ auth.onAuthStateChanged(user=>setcurrentUser(user))
         <Route path="/blog/:id">
             <BlogView currentUser={currentUser} darkMode={darkMode}/>
         </Route>
-        <Route path="/privacy-policy">
-            <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
+        <Route exact path="/privacy-policy">
+            <div style={{minHeight: "82.3vh"}}/>
         </Route>
-        <Route path="/terms-and-conditions">
-            <div style={{minHeight: "82.3vh"}} darkMode={darkMode}/>
+        <Route exact path="/terms-and-conditions">
+            <div style={{minHeight: "82.3vh"}}/>
         </Route>
-        <Route path="/about">
+        <Route exact path="/about">
             <About darkMode={darkMode}/>
+        </Route>
+        <Route exact path="/create">
+            <UploadBlog darkMode={darkMode}/>
         </Route>
         <Route>
             <PageNotFound darkMode={darkMode}/>
