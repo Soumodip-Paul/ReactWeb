@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Home } from './Components/pages/Home';
 import { NavBar } from './Components/items/NavBar';
 import { Footer } from './Components/pages/Footer';
@@ -11,10 +11,11 @@ import { Blog } from './Components/pages/Blog';
 import { PageNotFound } from './Components/pages/404';
 import { About } from './Components/pages/About';
 import { BlogView } from './Components/pages/BlogView';
+import { UploadBlog } from './Components/pages/UploadBlog';
+import LoadingBar from 'react-top-loading-bar'
 import firebaseApp from './firebase/base';
 import 'firebase/auth'
 import './css/web.css'
-import { UploadBlog } from './Components/pages/UploadBlog';
 
 const auth = firebaseApp.auth()
 
@@ -22,11 +23,13 @@ function App() {
 
 const [currentUser, setcurrentUser] = useState(auth.currentUser)
 const [darkMode, setDarkMode] = useState(true)
+const [progress, setProgress] = useState(0)
 const updateTheme = (booleanValue) =>   setDarkMode(booleanValue)
 auth.onAuthStateChanged(user=>setcurrentUser(user))
 
     return (
     <Router>
+        <LoadingBar height={darkMode?2:3} color={darkMode?'#0dcaf0':'#35f370'} progress={progress} onLoaderFinished={() => setProgress(0)}/>
         <NavBar showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme}/>
         <Switch>
         <Route exact path="/">
@@ -45,7 +48,7 @@ auth.onAuthStateChanged(user=>setcurrentUser(user))
             <User currentUser={currentUser} darkMode={darkMode}/>
         </Route>
         <Route exact path="/blog">
-            <Blog currentUser={currentUser} darkMode={darkMode}/>
+            <Blog currentUser={currentUser} setProgress={setProgress} darkMode={darkMode}/>
         </Route>
         <Route path="/blog/:id">
             <BlogView currentUser={currentUser} darkMode={darkMode}/>

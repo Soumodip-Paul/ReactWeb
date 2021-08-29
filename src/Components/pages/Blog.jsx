@@ -4,7 +4,7 @@ import "firebase/firestore"
 import { BlogItem } from '../items/BlogItem';
 
 const blogRef = firebaseApp.firestore().collection("blogs").orderBy("time","desc").limit(25);
-export const Blog = ({darkMode}) => {
+export const Blog = ({darkMode,setProgress}) => {
     const [info , setInfo] = useState([])
     const [visibility, setvisibility] = useState("block")
     const [isError, setError] = useState(false)
@@ -16,24 +16,30 @@ export const Blog = ({darkMode}) => {
     // Start the fetch operation as soon as
     // the page loads
     useEffect(() => {
-        fetchdata()
-    }, [])
+        fetchdata(setProgress)
+    }, [setProgress])
   
     // Fetch the required data using the get() method
-    const fetchdata = () => {
+    const fetchdata = (setProgress) => {
+        setProgress(20)
+        
+        let j = 0;
         blogRef/*.where("draft","==",false)*/.get().then((querySnapshot) => {
-             
+            setProgress(50)            
             // Loop through the data and store
             // it in array to display
             querySnapshot.forEach(element => {
                 var data = element.data();
                 setInfo(arr => [...arr , data]);
-                  
+                  j++;
             });
+            for (let i = 50 ; i < 90 ; i += 40 / j) setTimeout(setProgress(i),300);
+            setProgress(100)
             setvisibility("none")
         }).catch(error => {
             setMessage(error.message)
             setError(true);
+            setProgress(100)
         })
     }
     const reFetch = () => {
