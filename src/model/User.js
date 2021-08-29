@@ -38,3 +38,8 @@ export const uploadUser = async (user) => {
     const userRef =firebaseApp.firestore().collection("user")
     userRef.doc(user.uid).withConverter(userConverter).set(new User(user.displayName,user.email,user.photoURL,user.uid))
 }
+
+export const getUserDetail = (uid) => {
+    const userRef =firebaseApp.firestore().collection("user")
+    return userRef.doc(uid).get();
+}

@@ -16,6 +16,7 @@ import LoadingBar from 'react-top-loading-bar'
 import firebaseApp from './firebase/base';
 import 'firebase/auth'
 import './css/web.css'
+import { getUserDetail } from './model/User';
 
 const auth = firebaseApp.auth()
 
@@ -24,8 +25,25 @@ function App() {
 const [currentUser, setcurrentUser] = useState(auth.currentUser)
 const [darkMode, setDarkMode] = useState(true)
 const [progress, setProgress] = useState(0)
+const [admin, setAdmin] = useState(false)
 const updateTheme = (booleanValue) =>   setDarkMode(booleanValue)
-auth.onAuthStateChanged(user=>setcurrentUser(user))
+const checkIsAdmin = async (uid) => {
+    try {
+        let doc = await getUserDetail(uid)
+        if (doc.exists) setAdmin(doc.data().admin)
+        else setAdmin(false)
+    }
+    catch(e) {
+        setAdmin(false)
+    }
+}
+auth.onAuthStateChanged(user=>{
+    if (user == null) setAdmin(false)
+    else {
+        checkIsAdmin(user.uid)
+    }
+    setcurrentUser(user)
+})
 
     return (
     <Router>
@@ -62,8 +80,10 @@ auth.onAuthStateChanged(user=>setcurrentUser(user))
         <Route exact path="/about">
             <About darkMode={darkMode}/>
         </Route>
-        <Route exact path="/create">
-            <UploadBlog darkMode={darkMode}/>
+        <Route exact path="/create" render={()=> {
+            if(admin) return <UploadBlog darkMode={darkMode}/>
+            else return <PageNotFound darkMode={darkMode}/>
+            }}>
         </Route>
         <Route>
             <PageNotFound darkMode={darkMode}/>
