@@ -38,8 +38,12 @@ export const uploadBlog = async (data) => {
 
     const blogRef = firebaseApp.firestore().collection("blogs")
     blogRef.doc(data.link).withConverter(blogConverter).set(new BlogClass(data.title, data.text, data.link, data.time, data.draft))
+    firebaseApp.firestore().collection("blog-list").doc(data.link).withConverter(blogConverter).set(new BlogClass(data.title, data.text.split(".")[0], data.link, data.time, data.draft))
 }
 
-export const getBlog = (id) => {
+export const getBlog = () => {
+    return firebaseApp.firestore().collection("blog-list").orderBy("time", "desc").limit(25).get();
+}
+export const getBlogData = (id) => {
     return firebaseApp.firestore().collection("blogs").doc(id).withConverter(blogConverter).get();
 }

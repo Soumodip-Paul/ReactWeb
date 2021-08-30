@@ -1,29 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getBlog } from '../../model/BlogClass';
-import ShareUtils from '../utils/ShareUtils';
+import { getBlogData } from '../../model/BlogClass';
 import { renderAll } from '../utils/TextUtils';
+import ShareUtils from '../utils/ShareUtils';
 
-export const BlogView = ({ darkMode }) => {
+export const BlogView = ({ darkMode, setProgress }) => {
     const [blog, setBlog] = useState(null)
     const { id } = useParams()
     const backGround = `bg-${darkMode ? "secondary" : "white"}`
     const textColor = `text-${darkMode ? "light" : "dark"}`
 
+    const fetchData = async (id,setProgress) => {
+        setProgress(20)
+        let doc = await getBlogData(id)
+        setProgress(60)
+        if (doc.exists) {
+            let json = doc.data()
+            json.text = renderAll(json.text)
+            document.title = json.title + " - Cool Developer Bangla";
+            setBlog(json)
+        }
+        else setBlog(null)
+        setProgress(100)
+    }
+
     useEffect(() => {
-        getBlog(id).then((doc) => {
-            if (doc.exists) {
-                let json = doc.data()
-                json.text = renderAll(json.text)
-                document.title = json.title + " - Cool Developer Bangla";
-                setBlog(json)
-            }
-            else setBlog(null)
-        })
-    }, [id])
+        fetchData(id,setProgress)
+    }, [id,setProgress])
 
     return (
-        <div style={{ minHeight: "82.3vh" }} className={backGround}>
+        <>
             {blog != null ?
                 <div className="container">
                     <h1 style={{ fontFamily: "'Roboto',serif" }} className={`px-2 pt-2 pb-0 m-0 w-100 fw-bolder text-center  ${backGround} ${textColor}`}>{blog.title}</h1>
@@ -35,7 +41,7 @@ export const BlogView = ({ darkMode }) => {
                     </p>
                 </div>
                 : ""}
-        </div>
+        </>
     )
 }
 

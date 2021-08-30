@@ -38,7 +38,7 @@ export const UploadBlog = ({ darkMode }) => {
     }
     return (
         <div className={`p-0 m-0 blog-container ${backGround} ${textColor}`}>
-            <form onSubmit={e => { submit(e, false) }} className={`p-3  ms-0 ${backGround} ${textColor}`} style={{ minHeight: '82.3vh' }}>
+            <form onSubmit={e => { submit(e, false) }} className={`p-3  ms-0 ${backGround} ${textColor}`} >
                 <div className="form-group form-floating w-100">
                     <input type="text" className="form-control" id="linkInput" placeholder="Link" value={link}
                         onChange={e => { updateWarning(null); setlink(e.target.value); }} onBlur={() => updateWarning("success")} />

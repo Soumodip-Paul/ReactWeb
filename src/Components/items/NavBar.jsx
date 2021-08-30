@@ -3,11 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import PropTypes from 'prop-types'
 import firebaseApp from '../../firebase/base'
 import 'firebase/auth'
+import Dropdown, { DropdownDivider, DropdownItem, DropdownLink } from './Dropdown';
 
 const auth = firebaseApp.auth()
 
 
-export const NavBar = ({ showSearch, darkMode, onUpdateTheme }) => {
+export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin }) => {
     const [currentUser, setcurrentUser] = useState(auth.currentUser)
     auth.onAuthStateChanged(user => {
         setcurrentUser(user)
@@ -20,7 +21,7 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme }) => {
                         <img style={{ height: '40px', width: '40px', borderRadius: '50%' }} src="/assets/image/cool developer.png" alt="JUSC" />
                     </Link> :
                         <div className="dropdown navbar-brand">
-                            <div className="p-0" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div className="p-0" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src={currentUser.photoURL} alt={currentUser.displayName.charAt(0)}
                                     style={{
                                         width: "40px",
@@ -30,13 +31,16 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme }) => {
                                 />
                             </div>
 
-                            <ul className="dropdown-menu mt-2" style={{ top: '50px' }} aria-labelledby="dropdownMenuLink">
+                            {/* <ul className="dropdown-menu mt-2" style={{ top: '50px' }} aria-labelledby="profileDropdown">
                                 <li><Link className="dropdown-item" to={"/user/" + currentUser.uid}>Profile</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
-                                <li><span className="dropdown-item" onClick={() => auth.signOut()}
-                                    style={{ cursor: "pointer" }}>
-                                    Log Out</span></li>
-                            </ul>
+                                <li><span className="dropdown-item" onClick={() => auth.signOut()}>Log Out</span></li>
+                            </ul> */}
+                            <Dropdown className="mt-2" style={{ top: '50px' }} areaLabel="profileDropdown">
+                                <DropdownLink to={"/user/" + currentUser.uid}>Profile</DropdownLink>
+                                <DropdownDivider/>
+                                <DropdownItem><span onClick={() => auth.signOut()}>Log Out</span></DropdownItem>
+                            </Dropdown>
                         </div>
                     }
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +59,9 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme }) => {
                             </li>
                             <li className="nav-item">
                                 {currentUser == null ? null : <NavLink className="nav-link" activeClassName="active" to={"/user/" + currentUser.uid}>Profile</NavLink>}
+                            </li>
+                            <li className="nav-item">
+                                {!admin ? null : <NavLink className="nav-link" activeClassName="active" to={"/create"}>Create</NavLink>}
                             </li>
                         </ul>
                         <form className={showSearch ? "d-flex" : "d-none"}>

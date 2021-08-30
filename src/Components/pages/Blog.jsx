@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import firebaseApp from '../../firebase/base'
-import "firebase/firestore"
 import { BlogItem } from '../items/BlogItem';
+import { getBlog } from '../../model/BlogClass';
 
-const blogRef = firebaseApp.firestore().collection("blogs").orderBy("time", "desc").limit(25);
+// const blogRef = firebaseApp.firestore().collection("blogs").orderBy("time", "desc").limit(25);
 export const Blog = ({ darkMode, setProgress }) => {
     const [info, setInfo] = useState([])
     const [visibility, setvisibility] = useState("block")
@@ -24,7 +23,7 @@ export const Blog = ({ darkMode, setProgress }) => {
         setProgress(20)
 
         let j = 0;
-        blogRef/*.where("draft","==",false)*/.get().then((querySnapshot) => {
+        getBlog().then((querySnapshot) => {
             setProgress(50)
             // Loop through the data and store
             // it in array to display
@@ -49,7 +48,7 @@ export const Blog = ({ darkMode, setProgress }) => {
         fetchdata()
     }
     return (
-        <div className={`p-0 m-0 ${backGround} ${textColor}`} style={{ minHeight: "82.3vh" }}>
+        <div className={`p-0 m-0 ${backGround} ${textColor}`} >
             {!isError ? <div className={"spinner-border text-" + color} role="status"
                 style={{
                     display: visibility,

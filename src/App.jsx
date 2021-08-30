@@ -48,8 +48,8 @@ function App() {
     return (
         <Router>
             <LoadingBar height={darkMode ? 2 : 3} color={darkMode ? '#0dcaf0' : '#35f370'} progress={progress} onLoaderFinished={() => setProgress(0)} />
-            <NavBar showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme} />
-            <div style={{ minHeight: "82.3vh" }} className={`accordion bg-${darkMode ? "secondary" : "white"}`}>
+            <NavBar showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme} admin={admin} />
+            <div style={{ minHeight: "82.3vh" }} className={`bg-${darkMode ? "secondary" : "white"} text-${darkMode ? "light" : "dark"}`}>
                 <Switch>
                     <Route exact path="/">
                         <Home darkMode={darkMode} />
@@ -70,13 +70,13 @@ function App() {
                         <Blog currentUser={currentUser} setProgress={setProgress} darkMode={darkMode} />
                     </Route>
                     <Route path="/blog/:id">
-                        <BlogView currentUser={currentUser} darkMode={darkMode} />
+                        <BlogView currentUser={currentUser} setProgress={setProgress} darkMode={darkMode} />
                     </Route>
                     <Route exact path="/privacy-policy">
-
+                        <div className="container p-5">Sample Privacy Policy page</div>
                     </Route>
                     <Route exact path="/terms-and-conditions">
-
+                        <div className="container p-5">Sample Terms and conditions page</div>
                     </Route>
                     <Route exact path="/about">
                         <About darkMode={darkMode} />
