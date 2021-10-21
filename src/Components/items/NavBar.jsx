@@ -15,7 +15,7 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin }) => {
     })
     return (
         <header>
-            <nav className={`navbar navbar-expand-md navbar-${darkMode ? "dark" : "light"} fixed-top bg-${darkMode ? "dark" : "light"}`} id="#top" style={{ fontFamily: "'Roboto Slab', serif" }}>
+            <nav className={`navbar navbar-expand-md navbar-${darkMode ? "dark" : "light"} bg-${darkMode ? "dark" : "light"}`} id="#top" style={{ fontFamily: "'Roboto Slab', serif" }}>
                 <div className="container-fluid">
                     {currentUser == null ? <Link className="navbar-brand" to="/" >
                         <img style={{ height: '40px', width: '40px', borderRadius: '50%' }} src="/assets/image/cool developer.png" alt="JUSC" />

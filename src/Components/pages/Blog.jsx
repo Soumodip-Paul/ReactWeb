@@ -48,7 +48,7 @@ export const Blog = ({ darkMode, setProgress }) => {
         fetchdata()
     }
     return (
-        <div className={`p-0 m-0 ${backGround} ${textColor}`} >
+        <div className={`container ${backGround} ${textColor}`} >
             {!isError ? <div className={"spinner-border text-" + color} role="status"
                 style={{
                     display: visibility,

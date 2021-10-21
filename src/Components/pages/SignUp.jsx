@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import firebaseApp from '../../firebase/base'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import { Redirect } from 'react-router-dom'
 import { uploadUser } from '../../model/User'

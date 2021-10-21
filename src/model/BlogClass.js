@@ -1,5 +1,6 @@
 import firebaseApp from "../firebase/base"
 import "firebase/firestore"
+import { convertToPlain } from "../Components/utils/TextUtils"
 
 export class BlogClass {
     constructor(title, text, link, time, draft) {
@@ -34,11 +35,11 @@ export const blogConverter = {
         return new BlogClass(data.title, data.text, data.link, data.time, data.draft);
     }
 };
-export const uploadBlog = async (data) => {
+export const uploadBlog = async (title,text,link,time,draft) => {
 
     const blogRef = firebaseApp.firestore().collection("blogs")
-    blogRef.doc(data.link).withConverter(blogConverter).set(new BlogClass(data.title, data.text, data.link, data.time, data.draft))
-    firebaseApp.firestore().collection("blog-list").doc(data.link).withConverter(blogConverter).set(new BlogClass(data.title, data.text.split(".")[0], data.link, data.time, data.draft))
+    blogRef.doc(link).withConverter(blogConverter).set(new BlogClass(title, text, link, time, draft))
+    firebaseApp.firestore().collection("blog-list").doc(link).withConverter(blogConverter).set(new BlogClass(title, convertToPlain(text).split(".")[0], link, time, draft))
 }
 
 export const getBlog = () => {
