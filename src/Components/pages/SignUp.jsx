@@ -1,34 +1,33 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import Icons from '../assets/img.svg'
 import firebaseApp from '../../firebase/base'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { Redirect } from 'react-router-dom'
-import { uploadUser } from '../../model/User'
 
 const auth = firebaseApp.auth()
-const userRef = firebaseApp.firestore().collection("user")
 
-export const SignUp = ({ currentUser, darkMode }) => {
+const actionCodeSettings = {
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be in the authorized domains list in the Firebase Console.
+    url: process.env.REACT_APP_REDIRECT || 'http://localhost:3000/verify',
+    // This must be true.
+    handleCodeInApp: true,
+    iOS: {
+      bundleId: 'com.example.ios'
+    },
+    android: {
+      packageName: 'com.example.android',
+      installApp: true,
+      minimumVersion: '12'
+    },
+    dynamicLinkDomain: 'cooldeveloperbangla.ga'
+};
+
+export const SignUp = ({ currentUser }) => {
 
     const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
     const [password, setPassword] = useState("")
-    const [remember, setRemember] = useState(true)
-    const [displayEmail, setdisplayEmail] = useState("block")
-    const [gSignIn2, setgSignIn2] = useState(false)
-    const [providerEmail, setproviderEmail] = useState("")
-    const [isSigning, setisSigning] = useState(false)
-    const backGround = `bg-${darkMode ? "secondary" : "white"}`
-    const textColor = `text-${darkMode ? "light" : "dark"}`
-
-    auth.onAuthStateChanged(user => {
-        if (user == null) {
-            // setRemember(true)
-            // setdisplayEmail("block")
-            // setgSignIn2(false)
-            // setproviderEmail("")
-            // setisSigning(false)
-        }
-    })
 
     const submit = (e) => {
         e.preventDefault()
@@ -38,83 +37,31 @@ export const SignUp = ({ currentUser, darkMode }) => {
 
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 
-    const googleSignIn = () => {
-        auth.signInWithPopup(googleAuthProvider)
-            .then((result) => {
-
-                //var credential = result.credential;
-
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                //var token = credential.accessToken;
-                // console.log(token);
-                // The signed-in user info.
-                console.log(result.user);
-                const user = result.user;
-                setisSigning(true)
-                // ...
-                userRef
-                    .doc(user.uid)
-                    .get()
-                    .then(doc => {
-                        if (doc.exists) {
-                            auth.signOut()
-                            alert("User already exists")
-                            return
-                        }
-                        else {
-                            setproviderEmail(user.email)
-                            setdisplayEmail("none")
-                            setgSignIn2(true)
-                        }
-                    })
-                    .catch(error => {
-                        auth.signOut()
-                        console.log(error);
-                    })
-
-            }).catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-                auth.signOut();
-                console.log("An Error occured \ncode : " + errorCode + "\nMessage : " + errorMessage + "\nEmail to : " + email + "\nCredentials : " + JSON.stringify(credential))
-            })
+    const googleSignIn = async () => {
+        try {
+            await  auth.signInWithPopup(googleAuthProvider)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
-    const updatePassword = (currentUser, password) => {
-        currentUser.updatePassword(password)
-            .then(() => {
-                uploadUser(currentUser)
-                setisSigning(false)
-            }
-            )
-            .catch(error => {
-                auth.signOut()
-                alert(error.message);
-            })
+    const createUser = async (email, password) => {
+        try {
+            document.getElementById('closeSignIn').click()
+            const userCredential = await auth.createUserWithEmailAndPassword(email,password) 
+            await userCredential.user.updateProfile({displayName: name})
+            auth.signOut()
+            await auth.sendSignInLinkToEmail(email, actionCodeSettings)
+            window.localStorage.setItem('emailForSignIn', email);
+            setName('')
+            setEmail('')
+            setPassword('')
+            alert('Email sent to your email address')
+        } catch (error) {
+            console.error(error);
+        }
     }
-
-    const createUser = (email, password) => {
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in 
-                var user = userCredential.user;
-                console.log(user);
-                // ...
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ..
-                console.log(errorCode + " " + errorMessage);
-            });
-    }
-    return (
+    /*return (
         <div className={`m-0 p-5 ${backGround} ${textColor}`} style={{ height: "82.3vh" }}>
             {currentUser != null && !isSigning ? <Redirect to={"/user/" + currentUser.uid} /> : null}
             <div className="sign_in ">
@@ -151,5 +98,67 @@ export const SignUp = ({ currentUser, darkMode }) => {
                 </div>
             </div>
         </div>
+    )*/
+    return (
+        !currentUser && <>
+        <div className="modal rounded-5 shadow fade no-scroll" tabIndex="-1" role="dialog" id="modalSignin">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content rounded-5 shadow">
+                    <div className="modal-header p-5 pb-4 border-bottom-0">
+                        <h2 className="fw-bold mb-0">Sign up for free</h2>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeSignIn"></button>
+                    </div>
+
+                    <div className="modal-body p-5 pt-0">
+                        <form onSubmit={submit}>
+                            <div className="form-floating mb-3">
+                                <input type="text" className="form-control rounded-4" id="inputName" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+                                <label htmlFor="inputName">Name</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input type="email" className="form-control rounded-4" id="floatingInput" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
+                                <label htmlFor="floatingInput">Email address</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input type="password" className="form-control rounded-4" id="floatingPassword" placeholder="Password" value={password} onChange={e => {
+                                    setPassword(e.target.value)
+                                }}/>
+                                <label htmlFor="floatingPassword">Password</label>
+                            </div>
+                            <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign up</button>
+                            <small className="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                            <hr className="my-4" />
+                            <h2 className="fs-5 fw-bold mb-3">Or use a third-party</h2>
+                            {/* <button className="w-100 py-2 mb-2 btn btn-outline-dark rounded-4" type="submit">
+                                <svg className="bi me-1" width="16" height="16"><use xlinkHref={`${Icons}#twitter`} /></svg>
+                                Sign up with Twitter
+                            </button>
+                            <button className="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" type="submit">
+                                <svg className="bi me-1" width="16" height="16"><use xlinkHref={`${Icons}#facebook`} /></svg>
+                                Sign up with Facebook
+                            </button>
+                            <button className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-4" type="submit">
+                                <svg className="bi me-1" width="16" height="16"><use xlinkHref={`${Icons}#github`} /></svg>
+                                Sign up with GitHub
+                            </button> */}
+                            <button className="w-100 py-2 mb-2 btn btn-outline-success rounded-4" type="button" onClick={e => googleSignIn()}>
+                                <svg className="bi me-1" width="16" height="16"><use xlinkHref={`${Icons}#google`} /></svg>
+                                Sign up with Google
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </>
+    )
+}
+
+export const SignInButton = ({currentUser}) => {
+    return (
+        !currentUser && 
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSignin">
+            Sign In
+        </button>
     )
 }

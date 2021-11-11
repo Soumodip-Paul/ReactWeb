@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
 import { Link, NavLink } from "react-router-dom";
+import Dropdown, { DropdownDivider, DropdownItem, DropdownLink } from './Dropdown';
+import { SignInButton } from '../pages/SignUp';
+import { LoginButton } from '../pages/Login';
 import PropTypes from 'prop-types'
 import firebaseApp from '../../firebase/base'
 import 'firebase/auth'
-import Dropdown, { DropdownDivider, DropdownItem, DropdownLink } from './Dropdown';
 
 const auth = firebaseApp.auth()
 
 
-export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin }) => {
-    const [currentUser, setcurrentUser] = useState(auth.currentUser)
-    auth.onAuthStateChanged(user => {
-        setcurrentUser(user)
-    })
+export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin, currentUser }) => {
     return (
         <header>
             <nav className={`navbar navbar-expand-md navbar-${darkMode ? "dark" : "light"} bg-${darkMode ? "dark" : "light"}`} id="#top" style={{ fontFamily: "'Roboto Slab', serif" }}>
@@ -22,13 +19,22 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin }) => {
                     </Link> :
                         <div className="dropdown navbar-brand">
                             <div className="p-0" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src={currentUser.photoURL} alt={currentUser.displayName.charAt(0)}
+                                {currentUser.photoURL ?
+                                    <img src={currentUser.photoURL} alt={currentUser.email.charAt(0)}
                                     style={{
                                         width: "40px",
                                         height: "40px",
                                         borderRadius: "50%",
                                     }}
-                                />
+                                />: 
+                                <div style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    display: 'flex',
+                                    borderRadius: "50%",
+                                    background: '#789dc1'
+                                }} > <span className="m-auto text-light">{ (currentUser.displayName && currentUser.displayName.charAt(0).toLocaleUpperCase()) || currentUser.email.charAt(0).toLocaleUpperCase() }</span></div>
+                                }
                             </div>
 
                             {/* <ul className="dropdown-menu mt-2" style={{ top: '50px' }} aria-labelledby="profileDropdown">
@@ -69,10 +75,8 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin }) => {
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <button className={`btn btn-outline-${darkMode ? "light" : "dark"} mx-1`} onClick={() => onUpdateTheme(!darkMode)}>{darkMode ? "Light" : "Dark"}</button>
-                        {currentUser == null ? <Link className="btn btn-success mx-1" to="/login" >Log In</Link> :
-                            null
-                        }
-                        {currentUser == null ? <Link className="btn btn-success mx-1" to="/signup" >Sign In</Link> : null}
+                        <LoginButton currentUser={currentUser} />
+                        <SignInButton currentUser={currentUser} />
                     </div>
                 </div>
             </nav>

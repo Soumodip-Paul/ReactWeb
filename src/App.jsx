@@ -12,11 +12,11 @@ import { PageNotFound } from './Components/pages/404';
 import { About } from './Components/pages/About';
 import { BlogView } from './Components/pages/BlogView';
 import { UploadBlog } from './Components/pages/UploadBlog';
+import { getUserDetail } from './model/User';
 import LoadingBar from 'react-top-loading-bar'
 import firebaseApp from './firebase/base';
+import { Verify } from './Components/pages/verify';
 import 'firebase/auth'
-import './css/web.css'
-import { getUserDetail } from './model/User';
 
 const auth = firebaseApp.auth()
 
@@ -48,7 +48,7 @@ function App() {
     return (
         <Router>
             <LoadingBar height={darkMode ? 2 : 3} color={darkMode ? '#0dcaf0' : '#35f370'} progress={progress} onLoaderFinished={() => setProgress(0)} />
-            <NavBar showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme} admin={admin} />
+            <NavBar currentUser={currentUser} showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme} admin={admin} />
             <div style={{ minHeight: "82.3vh" }} className={`bg-${darkMode ? "secondary" : "white"} text-${darkMode ? "light" : "dark"}`}>
                 <Switch>
                     <Route exact path="/">
@@ -81,6 +81,9 @@ function App() {
                     <Route exact path="/about">
                         <About darkMode={darkMode} />
                     </Route>
+                    { !currentUser &&<Route exact path="/verify">
+                       <Verify />
+                    </Route>}
                     <Route exact path="/create" render={() => {
                         if (admin) return <UploadBlog darkMode={darkMode} />
                         else return <PageNotFound darkMode={darkMode} />
@@ -91,6 +94,8 @@ function App() {
                     </Route>
                 </Switch>
             </div>
+            <SignUp currentUser={currentUser} />
+            <Login currentUser={currentUser} darkMode={darkMode} />
             <ScrollTop darkMode={darkMode} />
             <Footer darkMode={darkMode} />
         </Router>

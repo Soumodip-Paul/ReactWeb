@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import { tinyOptions } from '../utils/TextUtils'
-import '../../css/blogupload.css'
 import { uploadBlog } from '../../model/BlogClass'
 
 export const UploadBlog = ({ darkMode }) => {
