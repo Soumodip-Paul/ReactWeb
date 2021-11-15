@@ -6,16 +6,18 @@ import { Login } from './Components/pages/Login';
 import { SignUp } from './Components/pages/SignUp';
 import { User } from './Components/pages/User';
 import { ScrollTop } from './Components/utils/ScrollTop';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Blog } from './Components/pages/Blog';
 import { PageNotFound } from './Components/pages/404';
 import { About } from './Components/pages/About';
 import { BlogView } from './Components/pages/BlogView';
 import { UploadBlog } from './Components/pages/UploadBlog';
 import { getUserDetail } from './model/User';
+import { Verify } from './Components/pages/verify';
+import { Pricing } from './Components/pages/Pricing';
+import { Darkmode } from './context/Background';
 import LoadingBar from 'react-top-loading-bar'
 import firebaseApp from './firebase/base';
-import { Verify } from './Components/pages/verify';
 import 'firebase/auth'
 
 const auth = firebaseApp.auth()
@@ -23,14 +25,13 @@ const auth = firebaseApp.auth()
 function App() {
 
     const [currentUser, setcurrentUser] = useState(auth.currentUser)
-    const [darkMode, setDarkMode] = useState(true)
     const [progress, setProgress] = useState(0)
     const [admin, setAdmin] = useState(false)
-    const updateTheme = (booleanValue) => setDarkMode(booleanValue)
+    const darkMode = useContext(Darkmode).mode
     const checkIsAdmin = async (uid) => {
         try {
             let doc = await getUserDetail(uid)
-            if (doc.exists) setAdmin(doc.data().admin)
+            if (doc.exists) setAdmin(doc.data().isAdmin)
             else setAdmin(false)
         }
         catch (e) {
@@ -46,28 +47,29 @@ function App() {
     })
 
     return (
+        
         <Router>
             <LoadingBar height={darkMode ? 2 : 3} color={darkMode ? '#0dcaf0' : '#35f370'} progress={progress} onLoaderFinished={() => setProgress(0)} />
-            <NavBar currentUser={currentUser} showSearch={false} darkMode={darkMode} onUpdateTheme={updateTheme} admin={admin} />
+            <NavBar currentUser={currentUser} showSearch={false} admin={admin} />
             <div style={{ minHeight: "82.3vh" }} className={`bg-${darkMode ? "secondary" : "white"} text-${darkMode ? "light" : "dark"}`}>
                 <Switch>
                     <Route exact path="/">
-                        <Home darkMode={darkMode} />
+                        <Home />
                     </Route>
                     <Route exact path="/login">
-                        <Login currentUser={currentUser} darkMode={darkMode} />
+                        <Login currentUser={currentUser} />
                     </Route>
                     <Route exact path="/signup">
-                        <SignUp currentUser={currentUser} darkMode={darkMode} />
+                        <SignUp currentUser={currentUser} />
                     </Route>
                     <Route exact path="/user/">
-                        <Redirect to={currentUser != null ? "./" + currentUser.uid : "/login"} darkMode={darkMode} />
+                        <Redirect to={currentUser != null ? "./" + currentUser.uid : "/login"} />
                     </Route>
                     <Route path="/user/:id">
-                        <User currentUser={currentUser} darkMode={darkMode} />
+                        <User currentUser={currentUser} />
                     </Route>
                     <Route exact path="/blog">
-                        <Blog currentUser={currentUser} setProgress={setProgress} darkMode={darkMode} />
+                        <Blog currentUser={currentUser} setProgress={setProgress} />
                     </Route>
                     <Route path="/blog/:id">
                         <BlogView currentUser={currentUser} setProgress={setProgress} darkMode={darkMode} />
@@ -79,25 +81,28 @@ function App() {
                         <div className="container p-5">Sample Terms and conditions page</div>
                     </Route>
                     <Route exact path="/about">
-                        <About darkMode={darkMode} />
+                        <About />
+                    </Route>
+                    <Route exact path="/pricing">
+                        <Pricing />
                     </Route>
                     { !currentUser &&<Route exact path="/verify">
                        <Verify />
                     </Route>}
                     <Route exact path="/create" render={() => {
-                        if (admin) return <UploadBlog darkMode={darkMode} />
-                        else return <PageNotFound darkMode={darkMode} />
+                        if (admin) return <UploadBlog />
+                        else return <PageNotFound />
                     }}>
                     </Route>
                     <Route>
-                        <PageNotFound darkMode={darkMode} />
+                        <PageNotFound />
                     </Route>
                 </Switch>
             </div>
             <SignUp currentUser={currentUser} />
-            <Login currentUser={currentUser} darkMode={darkMode} />
-            <ScrollTop darkMode={darkMode} />
-            <Footer darkMode={darkMode} />
+            <Login currentUser={currentUser} />
+            <ScrollTop />
+            <Footer />
         </Router>
     );
 }

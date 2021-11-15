@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { Darkmode } from '../../context/Background'
 
-export const ScrollTop = ({ darkMode }) => {
+export const ScrollTop = () => {
     const [right, setright] = useState("-60px")
     useEffect(() =>
         document.addEventListener('scroll', () => {
@@ -8,11 +9,11 @@ export const ScrollTop = ({ darkMode }) => {
             else setright('-60px')
         })
     )
-    const backGround = `bg-${darkMode ? "dark" : "light"}`
-    const textColor = `text-${darkMode ? "light" : "dark"}`
+    const darkMode = useContext(Darkmode).mode
+    const backGround = `bg-${darkMode ? "dark" : "secondary"}`
     return (
 
-        <span className={"m-3 mb-2 text-center rounded-circle material-icons material-icons-outlined p-2 " + backGround + " " + textColor}
+        <span className={"m-3 mb-2 text-center rounded-circle material-icons material-icons-outlined p-2 text-light " + backGround }
             onClick={() => {
                 window.scrollTo({
                     top: 0,

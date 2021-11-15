@@ -49,7 +49,7 @@ export const SignUp = ({ currentUser }) => {
         try {
             document.getElementById('closeSignIn').click()
             const userCredential = await auth.createUserWithEmailAndPassword(email,password) 
-            await userCredential.user.updateProfile({displayName: name})
+            await userCredential.user.updateProfile({displayName: name,photoURL: 'https://firebasestorage.googleapis.com/v0/b/cool-developer-blog.appspot.com/o/person_black_24dp.svg?alt=media&token=d082b7ff-f61d-45f3-a9cf-4aa5bacb556f'})
             auth.signOut()
             await auth.sendSignInLinkToEmail(email, actionCodeSettings)
             window.localStorage.setItem('emailForSignIn', email);
@@ -61,44 +61,6 @@ export const SignUp = ({ currentUser }) => {
             console.error(error);
         }
     }
-    /*return (
-        <div className={`m-0 p-5 ${backGround} ${textColor}`} style={{ height: "82.3vh" }}>
-            {currentUser != null && !isSigning ? <Redirect to={"/user/" + currentUser.uid} /> : null}
-            <div className="sign_in ">
-                <form className="mx-auto w-50 d-flex" style={{
-                    minWidth: '200px',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    maxWidth: '450px'
-                }} onSubmit={submit}>
-                    <img className="rounded-circle" src="../assets/image/cool developer.png" alt="" width="96px" height="96px" />
-                    {providerEmail != null && providerEmail.length !== 0 ? <h5 className="mb-4">Continue as <em className="text-primary">{providerEmail}</em></h5> : <h1 className="h3 mb-3 fw-normal">Please sign in</h1>}
-
-                    <div className="form-floating w-100">
-                        <input type="email" className="form-control" id="InputEmail" style={{ display: displayEmail }} placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-                        <label htmlFor="InputEmail" className={darkMode ? "text-dark" : ""}>Email address</label>
-                    </div>
-                    <div className="form-floating w-100">
-                        <input type="password" className="form-control" id="InputPassword" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-                        <label htmlFor="InputPassword" className={darkMode ? "text-dark" : ""}>Password</label>
-                    </div>
-
-                    <div className="checkbox m-3 w-100">
-                        <label>
-                            <input type="checkbox" value={remember} checked={remember} onChange={e => setRemember(e.target.checked)} /> Remember me
-                        </label>
-                    </div>
-                    {!gSignIn2 ? <button className="w-100 btn btn-lg btn-primary" id="emailSignIn" type="submit">Sign Up</button> : null}
-                </form>
-                <div className="w-100 text-center">
-                    {gSignIn2 ? <button className="w-50 btn btn-lg btn-success mt-1" id="gSignin2" style={{ maxWidth: '450px', minWidth: '200px' }} onClick={() => updatePassword(currentUser, password)}>Confirm</button> :
-                        <button className="w-50 btn btn-lg btn-success mt-1" id="gSignin" style={{ maxWidth: '450px', minWidth: '200px' }} onClick={() => googleSignIn()}>Sign In By Google</button>
-                    }
-                </div>
-            </div>
-        </div>
-    )*/
     return (
         !currentUser && <>
         <div className="modal rounded-5 shadow fade no-scroll" tabIndex="-1" role="dialog" id="modalSignin">
@@ -157,7 +119,7 @@ export const SignUp = ({ currentUser }) => {
 export const SignInButton = ({currentUser}) => {
     return (
         !currentUser && 
-        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSignin">
+        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalSignin">
             Sign In
         </button>
     )

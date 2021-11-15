@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { BlogItem } from '../items/BlogItem';
 import { getBlog } from '../../model/BlogClass';
+import { Darkmode } from '../../context/Background';
 
 // const blogRef = firebaseApp.firestore().collection("blogs").orderBy("time", "desc").limit(25);
-export const Blog = ({ darkMode, setProgress }) => {
+export const Blog = ({ setProgress }) => {
     const [info, setInfo] = useState([])
     const [visibility, setvisibility] = useState("block")
     const [isError, setError] = useState(false)
     const [message, setMessage] = useState("")
+    const darkMode = useContext(Darkmode).mode
     const backGround = `bg-${darkMode ? "secondary" : "white"}`
     const textColor = `text-${darkMode ? "light" : "dark"}`
     const color = `${darkMode ? "warning" : "success"}`

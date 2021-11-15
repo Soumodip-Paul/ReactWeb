@@ -5,14 +5,18 @@ import { LoginButton } from '../pages/Login';
 import PropTypes from 'prop-types'
 import firebaseApp from '../../firebase/base'
 import 'firebase/auth'
+import { Darkmode } from "../../context/Background";
+import {useContext} from 'react'
 
 const auth = firebaseApp.auth()
 
 
-export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin, currentUser }) => {
+export const NavBar = ({ showSearch, admin, currentUser }) => {
+    const darkMode = useContext(Darkmode).mode
+    const updateMode = useContext(Darkmode).setMode
     return (
         <header>
-            <nav className={`navbar navbar-expand-md navbar-${darkMode ? "dark" : "light"} bg-${darkMode ? "dark" : "light"}`} id="#top" style={{ fontFamily: "'Roboto Slab', serif" }}>
+            <nav className={`navbar navbar-expand-md navbar-dark bg-dark`} id="#top" style={{ fontFamily: "'Roboto Slab', serif" }}>
                 <div className="container-fluid">
                     {currentUser == null ? <Link className="navbar-brand" to="/" >
                         <img style={{ height: '40px', width: '40px', borderRadius: '50%' }} src="/assets/image/cool developer.png" alt="JUSC" />
@@ -74,7 +78,7 @@ export const NavBar = ({ showSearch, darkMode, onUpdateTheme, admin, currentUser
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
-                        <button className={`btn btn-outline-${darkMode ? "light" : "dark"} mx-1`} onClick={() => onUpdateTheme(!darkMode)}>{darkMode ? "Light" : "Dark"}</button>
+                        <button className={`btn btn-outline-light mx-1`} onClick={() => updateMode(!darkMode)}>{darkMode ? "Light" : "Dark"}</button>
                         <LoginButton currentUser={currentUser} />
                         <SignInButton currentUser={currentUser} />
                     </div>

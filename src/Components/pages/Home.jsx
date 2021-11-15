@@ -1,8 +1,10 @@
-import React from 'react'
+import {useContext} from 'react'
+import { Darkmode } from '../../context/Background'
 import { Carousel } from '../items/Carousel'
 
 
-export const Home = ({ darkMode }) => {
+export const Home = () => {
+    const darkMode = useContext(Darkmode).mode
     const backGround = `bg-${darkMode ? "secondary" : "white"}`
     const textColor = `text-${darkMode ? "light" : "dark"}`
     const mutedText = `text-${darkMode ? "dark" : "muted"}`

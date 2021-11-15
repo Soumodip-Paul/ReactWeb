@@ -1,6 +1,8 @@
-import React from 'react'
+import { useContext } from 'react'
+import { Darkmode } from '../../context/Background'
 
-export const PageNotFound = ({ darkMode }) => {
+export const PageNotFound = () => {
+    const darkMode = useContext(Darkmode).mode
     return (
         <>
             <img className={`bg-${darkMode ? "secondary" : "white"}`} width="100%" src="/assets/svg/404.svg" style={{ height: "85vh" }} alt="404 not found" />

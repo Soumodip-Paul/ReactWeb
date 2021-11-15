@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import { tinyOptions } from '../utils/TextUtils'
 import { uploadBlog } from '../../model/BlogClass'
+import { Darkmode } from '../../context/Background';
 
-export const UploadBlog = ({ darkMode }) => {
+export const UploadBlog = () => {
+    const darkMode = useContext(Darkmode).mode
     const backGround = `bg-${darkMode ? "secondary" : "white"}`
     const textColor = `text-${darkMode ? "light" : "dark"}`
     const [title, setTitle] = useState("")
