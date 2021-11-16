@@ -19,7 +19,7 @@ export const NavBar = ({ showSearch, admin, currentUser }) => {
             <nav className={`navbar navbar-expand-md navbar-dark bg-dark`} id="#top" style={{ fontFamily: "'Roboto Slab', serif" }}>
                 <div className="container-fluid">
                     {currentUser == null ? <Link className="navbar-brand" to="/" >
-                        <img style={{ height: '40px', width: '40px', borderRadius: '50%' }} src="/assets/image/cool developer.png" alt="JUSC" />
+                        <img style={{ height: '40px', width: '40px', borderRadius: '50%' }} src="/assets/image/Cool developer.png" alt="JUSC" />
                     </Link> :
                         <div className="dropdown navbar-brand">
                             <div className="p-0" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
