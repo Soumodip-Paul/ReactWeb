@@ -71,10 +71,11 @@ export const Footer = () => {
                     &copy; 2021 Cool Developer,  All rights reserved.
                 </p>
                 <ul className="list-unstyled d-flex">
-                    <li className="ms-3"><a className="link-dark" href="/" target="_blank" rel="noopener norefferer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#twitter`} /></svg></a></li>
-                    <li className="ms-3"><a className="link-dark" href="/" target="_blank" rel="noopener norefferer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#instagram`} /></svg></a></li>
-                    <li className="ms-3"><a className="link-dark" href="/" target="_blank" rel="noopener norefferer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#facebook`} /></svg></a></li>
-                    <li className="ms-3"><a className="link-dark" href="/" target="_blank" rel="noopener norefferer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#youtube`} /></svg></a></li>
+                    <li className="ms-3"><a className="link-dark" href="https://github.com/Soumodip-Paul" target="_blank" rel="noopener noreferrer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#github`} /></svg></a></li>
+                    <li className="ms-3"><a className="link-dark" href="https://twitter.com/soumodippaul6" target="_blank" rel="noopener noreferrer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#twitter`} /></svg></a></li>
+                    <li className="ms-3"><a className="link-dark" href="https://instagram.com/SoumodipPaul64" target="_blank" rel="noopener noreferrer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#instagram`} /></svg></a></li>
+                    <li className="ms-3"><a className="link-dark" href="/" target="_blank" rel="noopener noreferrer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#facebook`} /></svg></a></li>
+                    <li className="ms-3"><a className="link-dark" href="https://www.youtube.com/channel/UCOFwfN-LJ7wGvAOovAwpjxg?sub_confirmation=1" target="_blank" rel="noopener noreferrer"><svg className="bi" width="24" height="24"><use xlinkHref={`${Img}#youtube`} /></svg></a></li>
                 </ul>
             </div>
         </footer>
